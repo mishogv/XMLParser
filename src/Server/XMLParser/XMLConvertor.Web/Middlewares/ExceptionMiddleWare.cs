@@ -26,13 +26,13 @@ public class ExceptionMiddleWare
             switch (exception)
             {
                 case BadHttpRequestException badHttpRequestException:
-                    this.HandleBadHttpRequest(httpContext, problemDetails, badHttpRequestException);
+                    this.HandleBadHttpRequest(problemDetails, badHttpRequestException);
                     break;
                 case BusinessServiceException businessException:
                     this.HandleValidationException(problemDetails, businessException);
                     break;
                 default:
-                    this.HandleException(httpContext, problemDetails, exception);
+                    this.HandleException(problemDetails);
                     break;
             }
 
@@ -40,8 +40,7 @@ public class ExceptionMiddleWare
             await httpContext.Response.WriteJson(problemDetails);
         };
 
-    protected virtual void HandleBadHttpRequest(
-        HttpContext httpContext,
+    private void HandleBadHttpRequest(
         ProblemDetails problemDetails,
         BadHttpRequestException exception)
     {
@@ -55,7 +54,7 @@ public class ExceptionMiddleWare
         problemDetails.Status = status;
     }
 
-    protected virtual void HandleValidationException(
+    private void HandleValidationException(
         ProblemDetails problemDetails,
         BusinessServiceException exception)
     {
@@ -65,10 +64,8 @@ public class ExceptionMiddleWare
         problemDetails.Extensions[ExceptionAdditionalData] = exception.ParameterName;
     }
 
-    protected virtual void HandleException(
-        HttpContext httpContext,
-        ProblemDetails problemDetails,
-        Exception exception)
+    private void HandleException(
+        ProblemDetails problemDetails)
     {
         problemDetails.Title = UnhandledExceptionTitle;
         problemDetails.Status = (int)HttpStatusCode.InternalServerError;

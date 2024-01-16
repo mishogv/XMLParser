@@ -4,5 +4,5 @@ public class ConvertXMLFileRequestModel
 {
     public string Name { get; set; }
 
-    public IFormFile? Content { get; set; } = null;
+    public IFormFile? File { get; set; }
 }

@@ -27,6 +27,6 @@ public class XMLConvertorController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> ConvertXMLFile([FromForm] ConvertXMLFileRequestModel model)
         => await this.XMLConvertorService
-            .ConvertXmlToJsonAndSave(model.Name, model.Content)
+            .ConvertXmlToJsonAndSave(model.File?.GetBytes(), model.Name)
             .ToOkResult();
 }
