@@ -16,6 +16,7 @@ public class XmlConvertorService : IXmlConvertorService
     public async Task ConvertXmlToJsonAndSave(byte[]? byteContent, string fileName)
     {
         this.ValidateByteContentAndFileName(byteContent, fileName);
+
         var doc = this.LoadXmlDocument(byteContent!);
         var json = this.SerializeXmlDocumentToJson(doc);
 

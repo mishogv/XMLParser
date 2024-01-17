@@ -11,11 +11,11 @@ namespace XmlConvertor.Web.Features;
 [Produces(ApplicationJson)]
 public class XmlConvertorController : ControllerBase
 {
-    private readonly IXmlConvertorService XmlConvertorService;
+    private readonly IXmlConvertorService xmlConvertorService;
 
-    public XmlConvertorController(IXmlConvertorService XmlConvertorService)
+    public XmlConvertorController(IXmlConvertorService xmlConvertorService)
     {
-        this.XmlConvertorService = XmlConvertorService;
+        this.xmlConvertorService = xmlConvertorService;
     }
     
     /// <summary>
@@ -26,7 +26,7 @@ public class XmlConvertorController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> ConvertXmlFile([FromForm] ConvertXmlFileRequestModel model)
-        => await this.XmlConvertorService
+        => await this.xmlConvertorService
             .ConvertXmlToJsonAndSave(model.File?.GetBytes(), model.Name)
             .ToOkResult();
 }
