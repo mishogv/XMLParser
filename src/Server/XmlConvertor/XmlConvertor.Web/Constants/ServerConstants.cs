@@ -1,4 +1,4 @@
-namespace XMLConvertor.Web.Constants;
+namespace XmlConvertor.Web.Constants;
 
 public static class ServerConstants
 {

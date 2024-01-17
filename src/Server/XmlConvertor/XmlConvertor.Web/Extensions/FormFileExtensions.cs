@@ -1,4 +1,4 @@
-namespace XMLConvertor.Web.Extensions;
+namespace XmlConvertor.Web.Extensions;
 
 public static class FormFileExtensions
 {

@@ -1,7 +1,7 @@
 using System.Text.Json;
-using static XMLConvertor.Web.Constants.ServerConstants;
+using static XmlConvertor.Web.Constants.ServerConstants;
 
-namespace XMLConvertor.Web.Extensions;
+namespace XmlConvertor.Web.Extensions;
 
 public static class HttpExtensions
 {

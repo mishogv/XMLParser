@@ -1,5 +1,5 @@
-using XMLConvertor.Web.Middlewares;
-using XMLConvertor.Web.Services;
+using XmlConvertor.Web.Middlewares;
+using XmlConvertor.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +7,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IXMLConvertorService, XMLConvertorService>();
+builder.Services.AddTransient<IXmlConvertorService, XmlConvertorService>();
 builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddTransient<ExceptionMiddleware>();
 

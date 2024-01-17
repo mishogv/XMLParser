@@ -2,11 +2,11 @@ using System.Net;
 using System.Reflection;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using XMLConvertor.Web.Exceptions;
-using XMLConvertor.Web.Extensions;
-using static XMLConvertor.Web.Constants.ServerConstants;
+using XmlConvertor.Web.Exceptions;
+using XmlConvertor.Web.Extensions;
+using static XmlConvertor.Web.Constants.ServerConstants;
 
-namespace XMLConvertor.Web.Middlewares;
+namespace XmlConvertor.Web.Middlewares;
 
 public class ExceptionMiddleware
 {

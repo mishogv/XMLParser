@@ -1,6 +1,6 @@
-namespace XMLConvertor.Web.Services;
+namespace XmlConvertor.Web.Services;
 
-public interface IXMLConvertorService
+public interface IXmlConvertorService
 {
     public Task ConvertXmlToJsonAndSave(byte[]? byteContent, string fileName);
 }

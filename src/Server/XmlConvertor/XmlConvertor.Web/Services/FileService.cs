@@ -1,7 +1,7 @@
 using System.Text;
-using XMLConvertor.Web.Exceptions;
+using XmlConvertor.Web.Exceptions;
 
-namespace XMLConvertor.Web.Services;
+namespace XmlConvertor.Web.Services;
 
 public class FileService : IFileService
 {

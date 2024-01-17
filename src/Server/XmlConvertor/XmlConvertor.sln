@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMLConvertor.Web", "XMLConvertor.Web\XMLConvertor.Web.csproj", "{3191A027-9987-49C4-93E4-2885E3BC9C21}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlConvertor.Web", "XmlConvertor.Web\XmlConvertor.Web.csproj", "{3191A027-9987-49C4-93E4-2885E3BC9C21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMLConvertor.Web.Tests", "XMLConvertor.Web.Tests\XMLConvertor.Web.Tests.csproj", "{F700C57B-C099-4A74-A13F-8488A9464823}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlConvertor.Web.Tests", "XmlConvertor.Web.Tests\XmlConvertor.Web.Tests.csproj", "{F700C57B-C099-4A74-A13F-8488A9464823}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

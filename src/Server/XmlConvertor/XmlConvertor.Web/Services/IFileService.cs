@@ -1,4 +1,4 @@
-namespace XMLConvertor.Web.Services;
+namespace XmlConvertor.Web.Services;
 
 public interface IFileService
 {

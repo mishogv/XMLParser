@@ -1,6 +1,6 @@
-namespace XMLConvertor.Web.Models;
+namespace XmlConvertor.Web.Models;
 
-public class ConvertXMLFileRequestModel
+public class ConvertXmlFileRequestModel
 {
     public string Name { get; set; }
 

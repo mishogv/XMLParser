@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\XMLConvertor.Web\XMLConvertor.Web.csproj" />
+      <ProjectReference Include="..\XmlConvertor.Web\XmlConvertor.Web.csproj" />
     </ItemGroup>
 
 </Project>

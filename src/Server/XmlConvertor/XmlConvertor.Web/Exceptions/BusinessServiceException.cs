@@ -1,4 +1,4 @@
-namespace XMLConvertor.Web.Exceptions;
+namespace XmlConvertor.Web.Exceptions;
 
 public class BusinessServiceException : Exception
 {

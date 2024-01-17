@@ -1,14 +1,14 @@
 using System.Xml;
 using Newtonsoft.Json;
-using XMLConvertor.Web.Exceptions;
+using XmlConvertor.Web.Exceptions;
 
-namespace XMLConvertor.Web.Services;
+namespace XmlConvertor.Web.Services;
 
-public class XMLConvertorService : IXMLConvertorService
+public class XmlConvertorService : IXmlConvertorService
 {
     private readonly IFileService fileService;
 
-    public XMLConvertorService(IFileService fileService)
+    public XmlConvertorService(IFileService fileService)
     {
         this.fileService = fileService;
     }
@@ -16,7 +16,7 @@ public class XMLConvertorService : IXMLConvertorService
     public async Task ConvertXmlToJsonAndSave(byte[]? byteContent, string fileName)
     {
         this.ValidateByteContentAndFileName(byteContent, fileName);
-        var doc = this.LoadXMLDocument(byteContent!);
+        var doc = this.LoadXmlDocument(byteContent!);
         var json = this.SerializeXmlDocumentToJson(doc);
 
         await this.fileService.WriteToFileAsync(fileName, json);
@@ -42,7 +42,7 @@ public class XMLConvertorService : IXMLConvertorService
         }
     }
 
-    private XmlDocument LoadXMLDocument(byte[] byteContent)
+    private XmlDocument LoadXmlDocument(byte[] byteContent)
     {
         var doc = new XmlDocument();
         using var ms = new MemoryStream(byteContent);

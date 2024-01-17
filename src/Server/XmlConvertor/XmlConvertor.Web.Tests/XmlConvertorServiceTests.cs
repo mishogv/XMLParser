@@ -1,22 +1,22 @@
 using System.Text;
-using XMLConvertor.Web.Services;
+using XmlConvertor.Web.Services;
 
-namespace XMLConvertor.Web.Tests;
+namespace XmlConvertor.Web.Tests;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.IO;
 using System.Threading.Tasks;
-using XMLConvertor.Web.Exceptions;
+using XmlConvertor.Web.Exceptions;
 
 [TestClass]
-public class XMLConvertorServiceTests
+public class XmlConvertorServiceTests
 {
     [TestMethod]
     public async Task ConvertXmlToJsonAndSave_ValidInput_Success()
     {
         // Arrange
-        var xmlConvertorService = new XMLConvertorService(new FileService());
+        var xmlConvertorService = new XmlConvertorService(new FileService());
         var xmlContent = "<root><element>value</element></root>"u8.ToArray();
         var fileName = "test.xml";
 
@@ -31,7 +31,7 @@ public class XMLConvertorServiceTests
     public async Task ConvertXmlToJsonAndSave_InvalidFileName_ThrowsException()
     {
         // Arrange
-        var xmlConvertorService = new XMLConvertorService(new FileService());
+        var xmlConvertorService = new XmlConvertorService(new FileService());
         var xmlContent = "<root><element>value</element></root>"u8.ToArray();
         var invalidFileName = "test.txt";
 
@@ -44,8 +44,8 @@ public class XMLConvertorServiceTests
     public async Task ConvertXmlToJsonAndSave_InvalidXmlContent_ThrowsException()
     {
         // Arrange
-        var xmlConvertorService = new XMLConvertorService(new FileService());
-        var invalidXmlContent = "Invalid XML content"u8.ToArray();
+        var xmlConvertorService = new XmlConvertorService(new FileService());
+        var invalidXmlContent = "Invalid Xml content"u8.ToArray();
         var fileName = "test.xml";
 
         // Act and Assert
@@ -64,7 +64,7 @@ public class XMLConvertorServiceTests
         mockFileService.Setup(f => f.WriteToFileAsync(It.IsAny<string>(), It.IsAny<string>()))
             .ThrowsAsync(new BusinessServiceException("File system error"));
 
-        var xmlConvertorServiceWithMock = new XMLConvertorService(mockFileService.Object);
+        var xmlConvertorServiceWithMock = new XmlConvertorService(mockFileService.Object);
 
         // Act and Assert
         await Assert.ThrowsExceptionAsync<BusinessServiceException>(() =>
