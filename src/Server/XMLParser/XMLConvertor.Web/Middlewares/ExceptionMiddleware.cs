@@ -8,7 +8,7 @@ using static XMLConvertor.Web.Constants.ServerConstants;
 
 namespace XMLConvertor.Web.Middlewares;
 
-public class ExceptionMiddleWare
+public class ExceptionMiddleware
 {
     private const string StatusCodePropertyName = "StatusCode";
     private const string ExceptionAdditionalData = "Data";

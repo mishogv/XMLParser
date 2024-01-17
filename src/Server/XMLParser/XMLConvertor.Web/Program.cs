@@ -9,7 +9,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IXMLConvertorService, XMLConvertorService>();
 builder.Services.AddTransient<IFileService, FileService>();
-builder.Services.AddTransient<ExceptionMiddleWare>();
+builder.Services.AddTransient<ExceptionMiddleware>();
 
 var app = builder.Build();
 
@@ -17,7 +17,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseExceptionHandler(errorApp => errorApp.Run(errorApp.ApplicationServices.GetRequiredService<ExceptionMiddleWare>().Get));
+    app.UseExceptionHandler(errorApp => errorApp.Run(errorApp.ApplicationServices.GetRequiredService<ExceptionMiddleware>().Get));
 }
 
 app.UseHttpsRedirection();
