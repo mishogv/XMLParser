@@ -1,3 +1,4 @@
+using System.Reflection;
 using XmlConvertor.Web.Middlewares;
 using XmlConvertor.Web.Services;
 
@@ -10,6 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IXmlConvertorService, XmlConvertorService>();
 builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddTransient<ExceptionMiddleware>();
+builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
 var app = builder.Build();
 

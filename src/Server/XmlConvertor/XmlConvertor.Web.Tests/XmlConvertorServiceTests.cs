@@ -1,11 +1,11 @@
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using XmlConvertor.Web.Services;
 
 namespace XmlConvertor.Web.Tests;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using System.IO;
 using System.Threading.Tasks;
 using XmlConvertor.Web.Exceptions;
 
@@ -13,61 +13,55 @@ using XmlConvertor.Web.Exceptions;
 public class XmlConvertorServiceTests
 {
     [TestMethod]
-    public async Task ConvertXmlToJsonAndSave_ValidInput_Success()
+    public async Task ConvertXmlToJson_ValidXml_ReturnsJson()
     {
         // Arrange
-        var xmlConvertorService = new XmlConvertorService(new FileService());
-        var xmlContent = "<root><element>value</element></root>"u8.ToArray();
-        var fileName = "test.xml";
+        var xmlConvertorService = new XmlConvertorService();
+        var xmlContent = "<root><element>value</element></root>";
+        var byteContent = Encoding.UTF8.GetBytes(xmlContent);
 
         // Act
-        await xmlConvertorService.ConvertXmlToJsonAndSave(xmlContent, fileName);
+        var result = await xmlConvertorService.ConvertXmlToJson(byteContent);
 
         // Assert
-        Assert.IsTrue(File.Exists(fileName));
+        Assert.IsNotNull(result);
+        Assert.IsTrue(IsJson(result));
     }
 
     [TestMethod]
-    public async Task ConvertXmlToJsonAndSave_InvalidFileName_ThrowsException()
+    public async Task ConvertXmlToJson_InvalidXml_ThrowsBusinessServiceException()
     {
         // Arrange
-        var xmlConvertorService = new XmlConvertorService(new FileService());
-        var xmlContent = "<root><element>value</element></root>"u8.ToArray();
-        var invalidFileName = "test.txt";
+        var xmlConvertorService = new XmlConvertorService();
+        var invalidXmlContent = "<root><element>value</root>";
+        var byteContent = Encoding.UTF8.GetBytes(invalidXmlContent);
 
-        // Act and Assert
+        // Act & Assert
         await Assert.ThrowsExceptionAsync<BusinessServiceException>(() =>
-            xmlConvertorService.ConvertXmlToJsonAndSave(xmlContent, invalidFileName));
+            xmlConvertorService.ConvertXmlToJson(byteContent));
     }
 
     [TestMethod]
-    public async Task ConvertXmlToJsonAndSave_InvalidXmlContent_ThrowsException()
+    public async Task ConvertXmlToJson_NullByteContent_ThrowsArgumentNullException()
     {
         // Arrange
-        var xmlConvertorService = new XmlConvertorService(new FileService());
-        var invalidXmlContent = "Invalid Xml content"u8.ToArray();
-        var fileName = "test.xml";
+        var xmlConvertorService = new XmlConvertorService();
 
-        // Act and Assert
-        await Assert.ThrowsExceptionAsync<BusinessServiceException>(() =>
-            xmlConvertorService.ConvertXmlToJsonAndSave(invalidXmlContent, fileName));
+        // Act & Assert
+        await Assert.ThrowsExceptionAsync<ArgumentNullException>(() =>
+            xmlConvertorService.ConvertXmlToJson(null));
     }
-
-    [TestMethod]
-    public async Task ConvertXmlToJsonAndSave_FileSystemError_ThrowsException()
+    
+    private bool IsJson(string json)
     {
-        // Arrange
-        var xmlContent = Encoding.UTF8.GetBytes("<root><element>value</element></root>");
-        var fileName = "test.xml";
-
-        var mockFileService = new Mock<IFileService>();
-        mockFileService.Setup(f => f.WriteToFileAsync(It.IsAny<string>(), It.IsAny<string>()))
-            .ThrowsAsync(new BusinessServiceException("File system error"));
-
-        var xmlConvertorServiceWithMock = new XmlConvertorService(mockFileService.Object);
-
-        // Act and Assert
-        await Assert.ThrowsExceptionAsync<BusinessServiceException>(() =>
-            xmlConvertorServiceWithMock.ConvertXmlToJsonAndSave(xmlContent, fileName));
+        try
+        {
+            JToken.Parse(json);
+            return true;
+        }
+        catch (JsonReaderException)
+        {
+            return false;
+        }
     }
 }

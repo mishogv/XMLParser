@@ -1,7 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using XmlConvertor.Web.Commands;
 using XmlConvertor.Web.Extensions;
 using XmlConvertor.Web.Models;
-using XmlConvertor.Web.Services;
 using static XmlConvertor.Web.Constants.ServerConstants;
 
 namespace XmlConvertor.Web.Features;
@@ -11,11 +12,11 @@ namespace XmlConvertor.Web.Features;
 [Produces(ApplicationJson)]
 public class XmlConvertorController : ControllerBase
 {
-    private readonly IXmlConvertorService xmlConvertorService;
+    private readonly IMediator mediator;
 
-    public XmlConvertorController(IXmlConvertorService xmlConvertorService)
+    public XmlConvertorController(IMediator mediator)
     {
-        this.xmlConvertorService = xmlConvertorService;
+        this.mediator = mediator;
     }
     
     /// <summary>
@@ -26,7 +27,6 @@ public class XmlConvertorController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> ConvertXmlFile([FromForm] ConvertXmlFileRequestModel model)
-        => await this.xmlConvertorService
-            .ConvertXmlToJsonAndSave(model.File?.GetBytes(), model.Name)
+        => await this.mediator.Send(new ConvertXmlFileCommand(model.Name, model.File)) 
             .ToOkResult();
 }
