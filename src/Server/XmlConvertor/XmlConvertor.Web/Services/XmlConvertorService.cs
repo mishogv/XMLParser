@@ -8,6 +8,11 @@ public class XmlConvertorService : IXmlConvertorService
 {
     public async Task<string> ConvertXmlToJson(byte[]? byteContent)
     {
+        if (byteContent is null)
+        {
+            throw new BusinessServiceException("The file content is empty!");
+        }
+
         return await Task.Run(() =>
         {
             var doc = this.LoadXmlDocument(byteContent!);

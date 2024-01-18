@@ -48,7 +48,7 @@ public class XmlConvertorServiceTests
         var xmlConvertorService = new XmlConvertorService();
 
         // Act & Assert
-        await Assert.ThrowsExceptionAsync<ArgumentNullException>(() =>
+        await Assert.ThrowsExceptionAsync<BusinessServiceException>(() =>
             xmlConvertorService.ConvertXmlToJson(null));
     }
     

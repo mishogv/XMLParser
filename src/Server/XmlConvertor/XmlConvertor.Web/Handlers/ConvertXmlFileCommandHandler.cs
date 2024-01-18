@@ -24,14 +24,14 @@ public class ConvertXmlFileCommandHandler : IRequestHandler<ConvertXmlFileComman
         this.ValidateByteContentAndFileName(fileBytes, request.Name);
         var json = await this.xmlConvertorService.ConvertXmlToJson(fileBytes);
         
-        await this.fileService.WriteToFileAsync(request.Name.Replace(".xml", ".json"), json);
+        await this.fileService.WriteToFileAsync(request.Name.ReplaceXmlExtensionWithJson(), json);
     }
     
     private void ValidateByteContentAndFileName(byte[]? byteContent, string fileName)
     {
         if (byteContent == null || byteContent?.Length == 0 || string.IsNullOrWhiteSpace(fileName) || !fileName.EndsWith(".xml"))
         {
-            throw new BusinessServiceException("The file is empty or name is not specified or the file is with invalid extension!");
+            throw new CommandHandlerException("The file is empty or name is not specified or the file is with invalid extension!");
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using XmlConvertor.Web.Commands;
 using XmlConvertor.Web.Exceptions;
+using XmlConvertor.Web.Extensions;
 using XmlConvertor.Web.Handlers;
 using XmlConvertor.Web.Services;
 
@@ -29,7 +30,7 @@ namespace XmlConvertor.Web.Tests;
 
             // Assert
             xmlConvertorServiceMock.Verify(x => x.ConvertXmlToJson(fileBytes), Times.Once);
-            fileServiceMock.Verify(x => x.WriteToFileAsync(fileName, It.IsAny<string>()), Times.Once);
+            fileServiceMock.Verify(x => x.WriteToFileAsync(fileName.ReplaceXmlExtensionWithJson(), It.IsAny<string>()), Times.Once);
         }
 
         [TestMethod]
@@ -48,6 +49,6 @@ namespace XmlConvertor.Web.Tests;
 
 
             // Act & Assert
-            Assert.ThrowsExceptionAsync<BusinessServiceException>(() => handler.Handle(command, CancellationToken.None));
+            Assert.ThrowsExceptionAsync<CommandHandlerException>(() => handler.Handle(command, CancellationToken.None));
         }
     }
